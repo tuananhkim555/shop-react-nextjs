@@ -69,7 +69,7 @@ export default function Nav() {
         </Link>
         <Link
           href={"/categories"}
-          className={pathname.includes("/products") ? activeLink : inactiveLink}
+          className={pathname.includes("/categories") ? activeLink : inactiveLink}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
