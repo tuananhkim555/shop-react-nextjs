@@ -32,7 +32,7 @@ export default function DeleteProductPage() {
         <button className="btn-red" onClick={deleteProduct}>
           Yes
         </button>
-        <button className="btn-default" onClick={goBack}>
+        <button className="btn-primary" onClick={goBack}>
           No
         </button>
       </div>

@@ -77,20 +77,20 @@ export default function ProductForm({
     });
   }
 
-  const propertiesToFill = [];
-  if (categories.length > 0 && category) {
-    let catInfo = categories.find(({ _id }) => _id === category);
-    if (catInfo?.properties) {
-      propertiesToFill.push(...catInfo.properties);
-      while (catInfo?.parent?._id) {
-      const parentCat = categories.find(({ _id }) => _id === catInfo.parent._id);
-      if (parentCat?.properties) {
-        propertiesToFill.push(...parentCat.properties);
+    const propertiesToFill = [];
+    if (categories.length > 0 && category) {
+      let catInfo = categories.find(({ _id }) => _id === category);
+      if (catInfo?.properties) {
+        propertiesToFill.push(...catInfo.properties);
+        while (catInfo?.parent?._id) {
+        const parentCat = categories.find(({ _id }) => _id === catInfo.parent._id);
+        if (parentCat?.properties) {
+          propertiesToFill.push(...parentCat.properties);
+        }
+        catInfo = parentCat;
       }
-      catInfo = parentCat;
     }
   }
-}
 
 
   return (
@@ -113,17 +113,19 @@ export default function ProductForm({
           )}
       </select>
       {propertiesToFill.length > 0 && propertiesToFill.map(p => (
-        <div className="flex gap-2 text-gray-700">
-          <div>{p.name}</div>
-          <select
-            value={productProperties[p.name]}
-            onChange={ev => 
-            setProductProp(p.name,ev.target.value)
-            }>
-              {p.values.map(v => (
-                <option value={v}>{v}</option>
-              ))}
-          </select>
+        <div className="">
+          <label>{p.name[0].toUpperCase()+p.name.substring(1)}</label>
+          <div>
+            <select
+              value={productProperties[p.name]}
+              onChange={ev => 
+              setProductProp(p.name,ev.target.value)
+              }>
+                {p.values.map(v => (
+                  <option value={v}>{v}</option>
+                ))}
+            </select>
+          </div>
         </div>
       ))}
       <label>Photos</label>
@@ -135,7 +137,7 @@ export default function ProductForm({
         >
           {!!images?.length &&
             images.map((link) => (
-              <div key={link} className="h-24 ">
+              <div key={link} className="h-24 bg-white py-4 shadow-sm rounded-md border border-gray-200">
                 <img src={link} alt="" className="rounded-lg" />
               </div>
             ))}
@@ -147,7 +149,7 @@ export default function ProductForm({
         )}
         <label
           className="w-24 h-24 text-center flex items-center
-         justify-center flex-col rounded-lg text-sm gap-1 text-gray-500 bg-gray-200 cursor-pointer"
+         justify-center flex-col rounded-md text-sm gap-1 text-blue-800 border border-blue-800 bg-white shadow-sm cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +165,7 @@ export default function ProductForm({
               d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
             />
           </svg>
-          <div>Upload</div>
+          <div>Add image</div>
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
       </div>
